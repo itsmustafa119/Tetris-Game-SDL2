@@ -1,0 +1,8 @@
+# Compiled binary
+tetris.exe
+
+# Object files
+*.o
+
+# Build system output
+build/
