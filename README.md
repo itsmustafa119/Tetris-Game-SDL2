@@ -14,10 +14,7 @@ It was created as a personal project to practice C programming, terminal I/O, an
 - Game over detection
 
 ---
-## GIF
-![Tetris](GIF_2)
 
----
 
 ## 🛠️ How to Build
 
