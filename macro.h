@@ -3,12 +3,15 @@
 #define MACRO_H
 #include <SDL2/SDL.h>
 
+
     #define windowWidth  480
     #define windowHeight  640
     #define terminoRectPosX 40
     #define terminoRectPosY 40
     #define terminoRectWidth 40
     #define terminoRectHeight 40
+
+// The RGB of colors used in the game
 
     #define blueR 0
     #define blueG 0
@@ -42,9 +45,8 @@
     #define whiteG 255
     #define whiteB 255
 
-    #define TRUE 1
-    #define FALSE 0
 
+// enum for specifying the movement of a termino.
     typedef enum movement {
         noMove,
         moveDown,
@@ -53,6 +55,7 @@
         rightRotation,
         leftRotation
     } Movement;
+// enum for specifying the shape of a termino.
     typedef enum terminoShape {
         I, 
         T,
@@ -61,13 +64,14 @@
         O
 
     } TerminoShape;
-
+// enum for specifying the direction of a termino.
     typedef enum terminoDirection {
         Up,
         Down,
         Right,
         Left
     } TerminoDirection;
+// Termino struct.
     typedef struct Termino {
         SDL_Rect terminoRectangles[4];
         int r, g, b;
@@ -76,11 +80,13 @@
         TerminoDirection direction;
 
     } Termino;
+// Rectangle struct.
     typedef struct Rectangle {
         SDL_Rect rect;
         int r, g, b;
     } Rectangle;
 
+// enum for the status of a termino.
     typedef enum Status {
         STOP, 
         MOVING, 

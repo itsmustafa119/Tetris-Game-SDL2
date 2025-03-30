@@ -40,12 +40,12 @@ bool destroyRow(Rectangle rectangles[12][16], int * score);
 
 
 // The update function is calling this function to check if the new position will not collide with other terminos or the game borders. 
-Status checkCollision(Termino termino, Movement movement, Rectangle rectangles[12][16]);
+static Status checkCollision(Termino termino, Movement movement, Rectangle rectangles[12][16]);
 
 
 // The checkRectanglesColor function is used by checkCollision function for checking if a specific rectangle has a specific
 // RGB color or not.
-bool checkRectanglesColor (Rectangle rectangles[12][16], int col, int row, int r, int g, int b);
+static bool checkRectanglesColor (Rectangle rectangles[12][16], int col, int row, int r, int g, int b);
 
 
 // The SDL_RenderRectangles is used for rendering the 2-D array of rectangles.
@@ -63,11 +63,11 @@ void SDL_RenderTermino(SDL_Renderer** renderer, Termino termino);
     updateO: updates the position of the O termino
 */
 
-Status updateI (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
-Status updateT (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
-Status updateL (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
-Status updateZ (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
-Status updateO (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
+static Status updateI (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
+static Status updateT (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
+static Status updateL (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
+static Status updateZ (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
+static Status updateO (Termino *termino, Movement movement, Rectangle rectangles[12][16]);
 
 
 

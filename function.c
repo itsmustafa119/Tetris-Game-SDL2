@@ -1,6 +1,13 @@
+
+// Header files
 #include "function.h"
 #include "macro.h"
 #include <time.h>
+
+
+// The body of the functions:
+
+// The init function:
 bool init(SDL_Window** window, SDL_Renderer** renderer, Rectangle rectangles[12][16], Termino terminos[]) {
     bool success;
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
@@ -55,6 +62,8 @@ bool init(SDL_Window** window, SDL_Renderer** renderer, Rectangle rectangles[12]
     return success;
 }
 
+
+// close function:
 void close (SDL_Window* window,  SDL_Renderer* renderer, int * score) {
 
     printf("You lost! try again buddy!\n");
@@ -64,6 +73,8 @@ void close (SDL_Window* window,  SDL_Renderer* renderer, int * score) {
     SDL_Quit();
 }
 
+
+// randomNumber function:
 int randomNumber(int minNum, int maxNum)
     {
         int result = 0, lowNum = 0, highNum = 0;
@@ -82,6 +93,8 @@ int randomNumber(int minNum, int maxNum)
         return result;
     }
 
+
+// SDL_RenderTermino function:
 void SDL_RenderTermino(SDL_Renderer** renderer, Termino termino) {
     
     SDL_SetRenderDrawColor(*renderer, termino.r, termino.g, termino.b, SDL_ALPHA_OPAQUE);
@@ -90,6 +103,8 @@ void SDL_RenderTermino(SDL_Renderer** renderer, Termino termino) {
     }
     
 }
+
+// SDL_RenderRectangles function:
 void SDL_RenderRectangles(SDL_Renderer** renderer, Rectangle rectangles[12][16]) {
     
     for(int i = 0; i < 12; i ++) {
@@ -100,6 +115,8 @@ void SDL_RenderRectangles(SDL_Renderer** renderer, Rectangle rectangles[12][16])
         }
     }
 }
+
+// The SDL_RenderLines function:
 void SDL_RenderLines(SDL_Renderer** renderer) {
     SDL_SetRenderDrawColor(*renderer, whiteR, whiteG, whiteB, SDL_ALPHA_OPAQUE);
     for( int i = 0 ; i < 12; i++) {
@@ -109,6 +126,8 @@ void SDL_RenderLines(SDL_Renderer** renderer) {
         SDL_RenderDrawLine(*renderer, 0, i*terminoRectPosY, windowWidth, i*terminoRectPosY);
     }
 }
+
+// update function:
 char* update(Termino *termino, int frameDelay, int frameStart, Movement movement, Rectangle rectangles[12][16]) {
 
     Termino currentTermino = *termino;
@@ -164,42 +183,45 @@ char* update(Termino *termino, int frameDelay, int frameStart, Movement movement
         frameStart = SDL_GetTicks();
     return "running";
 }
-bool destroyRow(Rectangle rectangles[12][16], int* score) {
-bool flag = false;
-int i , j;
-int counter;
-        for( i = 15; i >= 0; i--) {
-            counter = 0;
-            for(  j = 0; j < 12; j++) {
-                if((rectangles[j][i].r == cyanR) && (rectangles[j][i].g == cyanG) && (rectangles[j][i].b == cyanB)) {
-                    counter++;
-                } 
 
-            }
-            if(counter == 12) {
-                *score += 12;
-                flag = true;
-                for(j = 0; j < 12; j++) {
-                    rectangles[j][i].r = blackR;
-                    rectangles[j][i].g = blackG;
-                    rectangles[j][i].b = blackB;
+
+// destroyRow function:
+bool destroyRow(Rectangle rectangles[12][16], int* score) {
+    bool flag = false;
+    int i , j;
+    int counter;
+            for( i = 15; i >= 0; i--) {
+                counter = 0;
+                for(  j = 0; j < 12; j++) {
+                    if((rectangles[j][i].r == cyanR) && (rectangles[j][i].g == cyanG) && (rectangles[j][i].b == cyanB)) {
+                        counter++;
+                    } 
+
                 }
-                for(int p = i - 1 ; p >= 0 ; p--) {
+                if(counter == 12) {
+                    *score += 12;
+                    flag = true;
                     for(j = 0; j < 12; j++) {
-                            rectangles[j][p + 1].r = rectangles[j][p].r;
-                            rectangles[j][p + 1].g = rectangles[j][p].g;
-                            rectangles[j][p + 1].b = rectangles[j][p].b;
-                            
+                        rectangles[j][i].r = blackR;
+                        rectangles[j][i].g = blackG;
+                        rectangles[j][i].b = blackB;
+                    }
+                    for(int p = i - 1 ; p >= 0 ; p--) {
+                        for(j = 0; j < 12; j++) {
+                                rectangles[j][p + 1].r = rectangles[j][p].r;
+                                rectangles[j][p + 1].g = rectangles[j][p].g;
+                                rectangles[j][p + 1].b = rectangles[j][p].b;
+                                
+                        }
                     }
                 }
             }
-        }
-    return flag;
+        return flag;
 }
 
 
-
-Status updateI (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
+// updateI function:
+static Status updateI (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
     Termino currentTermino = *termino;
     char shape = currentTermino.shape;
     Status status;
@@ -405,7 +427,8 @@ Status updateI (Termino *termino, Movement movement, Rectangle rectangles[12][16
     return status;
 }
 
-Status updateT (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
+// updateT function
+static Status updateT (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
     Termino currentTermino = *termino;
     char shape = currentTermino.shape;
     Status status;
@@ -610,7 +633,8 @@ Status updateT (Termino *termino, Movement movement, Rectangle rectangles[12][16
 }
 
 
-Status updateL (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
+// updateL function:
+static Status updateL (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
     Termino currentTermino = *termino;
     char shape = currentTermino.shape;
     Status status;
@@ -810,7 +834,9 @@ Status updateL (Termino *termino, Movement movement, Rectangle rectangles[12][16
     return status;
 }
 
-Status updateZ (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
+
+// updateZ function:
+static Status updateZ (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
     Termino currentTermino = *termino;
     char shape = currentTermino.shape;
     Status status;
@@ -1007,7 +1033,10 @@ Status updateZ (Termino *termino, Movement movement, Rectangle rectangles[12][16
     *termino = currentTermino;
     return status;
 }
-Status updateO (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
+
+
+// updateO function:
+static Status updateO (Termino *termino, Movement movement, Rectangle rectangles[12][16]) {
     Termino currentTermino = *termino;
     char shape = currentTermino.shape;
     Status status;
@@ -1196,14 +1225,19 @@ Status updateO (Termino *termino, Movement movement, Rectangle rectangles[12][16
     *termino = currentTermino;
     return status;
 }
-bool checkRectanglesColor (Rectangle rectangles[12][16], int col, int row, int r, int g, int b) {
+
+
+// checkRectanglesColor function:
+static bool checkRectanglesColor (Rectangle rectangles[12][16], int col, int row, int r, int g, int b) {
     if (rectangles[col][row].r == r && rectangles[col][row].g == g && rectangles[col][row].b == b) {
         return true;
     }
     return false;
 }
 
-Status checkCollision (Termino termino, Movement movement, Rectangle rectangles[12][16]) {
+
+// checkCollision function:
+static Status checkCollision (Termino termino, Movement movement, Rectangle rectangles[12][16]) {
 
 
     int rect0Col = termino.terminoRectangles[0].x/terminoRectPosX;
